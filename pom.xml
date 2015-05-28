@@ -4,7 +4,7 @@
 
     <groupId>com.github.sdd330</groupId>
     <artifactId>dockerbuild-maven-plugin</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <name>A maven plugin to build java code using docker containers</name>
@@ -26,7 +26,7 @@
         <connection>scm:git:https://github.com/sdd330/dockerbuild-maven-plugin</connection>
         <developerConnection>scm:git:git@github.com:sdd330/dockerbuild-maven-plugin</developerConnection>
         <url>https://github.com/sdd330/dockerbuild-maven-plugin</url>
-        <tag>v1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
