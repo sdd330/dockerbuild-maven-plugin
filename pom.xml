@@ -9,9 +9,7 @@
     <packaging>maven-plugin</packaging>
 
     <name>A maven plugin to build java code using docker containers</name>
-
-    <!-- FIXME change it to the project's website -->
-    <url>http://maven.apache.org</url>
+    <url>https://github.com/sdd330/dockerbuild-maven-plugin/wiki</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,6 +22,21 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <scm>
+        <connection>scm:git:https://github.com/sdd330/dockerbuild-maven-plugin</connection>
+        <developerConnection>scm:git:git@github.com:sdd330/dockerbuild-maven-plugin</developerConnection>
+        <url>https://github.com/sdd330/dockerbuild-maven-plugin</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <developers>
         <developer>
             <id>larrycai</id>
@@ -234,6 +247,32 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>1.9</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.4</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>${autoReleaseAfterClose}</autoReleaseAfterClose>
+                </configuration>
             </plugin>
         </plugins>
     </build>
