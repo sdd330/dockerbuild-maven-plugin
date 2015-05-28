@@ -35,7 +35,7 @@
               </prepare-package>
               <package>
                 <!-- Added -->
-                com.dockerbuild:dockerbuild-maven-plugin:build
+                com.github.sdd330:dockerbuild-maven-plugin:build
               </package>
               <install>
                 org.apache.maven.plugins:maven-install-plugin:2.4:install
