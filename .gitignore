@@ -1,3 +1,14 @@
+target/
+.project
+.classpath
+.settings/
+.springBeans
+eclipse-out/
+.svn/
+.buildpath
+.DS_Store
+bin
+
 *.class
 
 # Mobile Tools for Java (J2ME)
