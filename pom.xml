@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.sdd330</groupId>
     <artifactId>dockerbuild-maven-plugin</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>maven-plugin</packaging>
 
     <name>A maven plugin to build java code using docker containers</name>
@@ -27,7 +26,7 @@
         <connection>scm:git:https://github.com/sdd330/dockerbuild-maven-plugin</connection>
         <developerConnection>scm:git:git@github.com:sdd330/dockerbuild-maven-plugin</developerConnection>
         <url>https://github.com/sdd330/dockerbuild-maven-plugin</url>
-        <tag>HEAD</tag>
+        <tag>v1.0</tag>
     </scm>
 
     <distributionManagement>
