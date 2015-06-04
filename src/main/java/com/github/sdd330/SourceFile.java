@@ -3,7 +3,7 @@ package com.github.sdd330;
 import java.io.File;
 
 /**
- * Represents a source file to be processed by jsmodule
+ * Represents a source file to be processed
  */
 public class SourceFile {
     private String source;

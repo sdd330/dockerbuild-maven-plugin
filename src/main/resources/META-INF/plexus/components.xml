@@ -18,7 +18,7 @@
                 org.apache.maven.plugins:maven-resources-plugin:2.6:resources
               </process-resources>
               <compile>
-                org.apache.maven.plugins:maven-compiler-plugin:2.5.1:compile
+                com.github.sdd330:dockerbuild-maven-plugin:compile
               </compile>
               <process-test-resources>
                 org.apache.maven.plugins:maven-resources-plugin:2.6:testResources
@@ -27,18 +27,16 @@
                 org.apache.maven.plugins:maven-compiler-plugin:2.5.1:testCompile
               </test-compile>
               <test>
-                org.apache.maven.plugins:maven-surefire-plugin:2.12.4:test
+                com.github.sdd330:dockerbuild-maven-plugin:test
               </test>
               <prepare-package>
-                <!-- Moved from package to prepare-package -->
                 org.apache.maven.plugins:maven-jar-plugin:2.4:jar
               </prepare-package>
               <package>
-                <!-- Added -->
-                com.github.sdd330:dockerbuild-maven-plugin:build
+                com.github.sdd330:dockerbuild-maven-plugin:package
               </package>
               <install>
-                org.apache.maven.plugins:maven-install-plugin:2.4:install
+                com.github.sdd330:dockerbuild-maven-plugin:install
               </install>
               <deploy>
                 org.apache.maven.plugins:maven-deploy-plugin:2.7:deploy

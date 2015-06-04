@@ -16,6 +16,8 @@ public class Container {
     private String image;
     private String[] sourceIncludes = {};
     private String[] sourceExcludes = {};
+    private String[] testSourceIncludes = {};
+    private String[] testSourceExcludes = {};
     private static final String CONTAINER_HOME = "/workspace";
 
     /**
@@ -75,6 +77,34 @@ public class Container {
     }
 
     /**
+     * @return Returns the testSourceIncludes.
+     */
+    public String[] getTestSourceIncludes() {
+        return testSourceIncludes;
+    }
+
+    /**
+     * @param testSourceIncludes The testSourceIncludes to set.
+     */
+    public void setTestSourceIncludes(String[] testSourceIncludes) {
+        this.testSourceIncludes = testSourceIncludes;
+    }
+
+    /**
+     * @return Returns the testSourceExcludes.
+     */
+    public String[] getTestSourceExcludes() {
+        return testSourceExcludes;
+    }
+
+    /**
+     * @param testSourceExcludes The testSourceExcludes to set.
+     */
+    public void setTestSourceExcludes(String[] testSourceExcludes) {
+        this.testSourceExcludes = testSourceExcludes;
+    }
+
+    /**
      * getSourceFiles
      * 
      * @param project
@@ -101,11 +131,37 @@ public class Container {
     }
 
     /**
+     * getTestSourceFiles
+     * 
+     * @param project
+     * @return A list of source file
+     */
+    public List<SourceFile> getTestSourceFiles(MavenProject project) {
+        List<SourceFile> files = new ArrayList<SourceFile>();
+
+        for (String sourceDir : project.getTestCompileSourceRoots()) {
+            if (new File(sourceDir).exists()) {
+                DirectoryScanner ds = new DirectoryScanner();
+                ds.setBasedir(sourceDir);
+                ds.setExcludes(testSourceExcludes);
+                ds.addDefaultExcludes();
+                ds.setIncludes(testSourceIncludes);
+                ds.scan();
+                for (String file : ds.getIncludedFiles()) {
+                    files.add(new SourceFile(new File(sourceDir), file));
+                }
+            }
+        }
+
+        return files;
+    }
+
+    /**
      * getDockerFileContent
      * 
      * @return The content of Dockerfile
      */
-    public String getDockerFileContent(MavenProject project, String phase) {
+    public String getDockerFileContent(MavenProject project) {
         StringBuffer sb = new StringBuffer();
         sb.append("FROM " + image);
         sb.append("\n");
@@ -115,8 +171,10 @@ public class Container {
         sb.append("\n");
         sb.append("Add . " + CONTAINER_HOME);
         sb.append("\n");
-        sb.append("CMD [\"mvn\",\"" + phase + "\"]");
+        sb.append("VOLUME " + CONTAINER_HOME + "/target");
         sb.append("\n");
+        //sb.append("CMD [\"mvn\",\"" + phase + "\"]");
+        //sb.append("\n");
         return sb.toString();
     }
 
@@ -125,19 +183,20 @@ public class Container {
      * @param command
      * @return The content of docker compose
      */
-    public String getDockerComposeContent(MavenProject project, File outputDirectory, Artifactory artifactory) {
+    public String getDockerComposeContent(MavenProject project, File outputDirectory, String targetDir, String cmd) {
         StringBuffer sb = new StringBuffer();
         sb.append(name);
         sb.append(":");
         sb.append("\n");
         sb.append("    build: " + name);
         sb.append("\n");
-        if (artifactory != null) {
-            sb.append("    links:");
-            sb.append("\n");
-            sb.append("     - " + artifactory.getName());
-            sb.append("\n");
-        }
+        sb.append("    command: " + cmd);
+        sb.append("\n");
+        sb.append("    volumes:");
+        sb.append("\n");
+        sb.append("     - " + targetDir + ":" + CONTAINER_HOME + "/target");
+        sb.append("\n");
         return sb.toString();
     }
+
 }
